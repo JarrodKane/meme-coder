@@ -15,7 +15,7 @@ const languageOptions = Object.keys(languages).map((key) => (
 
 const Home = () => {
   const [codeInput, setCodeInput] = useState("");
-  const [result, setResult] = useState();
+  const [result, setResult] = useState({ memeTitle: '', caption: '' });
   const [selectedOption, setSelectedOption] = useState(languageOptions[0]);
 
 
