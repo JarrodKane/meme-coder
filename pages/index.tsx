@@ -1,5 +1,6 @@
 import { toPng } from "html-to-image";
 import Head from "next/head";
+import { Resizable } from 're-resizable';
 import { useCallback, useRef, useState } from "react";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import javascript from "react-syntax-highlighter/dist/cjs/languages/hljs/javascript";
@@ -13,12 +14,10 @@ const languageOptions = Object.keys(languages).map((key) => (
 ));
 
 const Home = () => {
-  const [codeInput, setCodeInput] = useState("");
+  const [codeInput, setCodeInput] = useState(" ");
   const [result, setResult] = useState({ memeTitle: '', caption: '' });
   const [selectedOption, setSelectedOption] = useState(languageOptions[0]);
-
-
-
+  const [resizeSize, setResizeSize] = useState({ width: 500, height: 500 });
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -123,47 +122,62 @@ const Home = () => {
         </button>
       </div>
 
-      <pre
-        id="code-box"
-        className="bg-gray-800 border border-gray-800 py-4 rounded-lg "
-        ref={ref}
-      >
-        <div className="flex flex-col ">
-          <div className="flex items-cente px-2">
-            <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
-            <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-          </div>
-          <div
-            className="flex-1 bg-white mt-2 overflow-hidden whitespace-normal break-normal"
-            id="code-text"
-          >
-            {result ? (
-              <div className="flex flex-col">
-                {result?.memeTitle ? (
-                  <h2 className="font-bold text-xl text-center	mx-5">{result.memeTitle}</h2>
-                ) : null}
-                <SyntaxHighlighter
-                  language={selectedOption}
-                  lineProps={{
-                    style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
-                  }}
-                  wrapLines={true}
-                  style={github}
-                  showLineNumbers={true}
-                >
-                  {codeInput}
-                </SyntaxHighlighter>
-                {result?.caption ? (
-                  <h2 className="font-bold text-l text-center	mx-5">{result.caption}</h2>
-                ) : null}
-              </div>
-            ) : (
-              <div className="h-24"></div>
-            )}
-          </div>
+      <div className="alert alert-info shadow-lg max-w-3xl">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current flex-shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span>You can adjust the width of the code output by going and dragging the side</span>
         </div>
-      </pre>
+      </div>
+
+      <Resizable className='hover:outline outline-red-600'
+        size={{ width: resizeSize.width, height: resizeSize.height }}
+        onResizeStop={(e, direction, ref, d) => {
+          setResizeSize({ width: resizeSize.width + d.width, height: resizeSize.height + d.height });
+        }}
+      >
+        <pre
+          id="code-box"
+          className={`bg-gray-800 border border-gray-800 py-4 rounded-lg `}
+          ref={ref}
+
+        >
+          <div className="flex flex-col ">
+            <div className="flex  px-2">
+              <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+              <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+            </div>
+            <div
+              className="flex-1 bg-white mt-2 overflow-hidden whitespace-normal break-normal"
+              id="code-text"
+            >
+              {result ? (
+                <div className="flex flex-col mx-2">
+                  {result?.memeTitle ? (
+                    <h2 className="font-bold text-xl mx-5">{result.memeTitle}</h2>
+                  ) : null}
+                  <SyntaxHighlighter
+                    language={selectedOption}
+                    lineProps={{
+                      style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
+                    }}
+                    wrapLines={true}
+                    style={github}
+                    showLineNumbers={true}
+                  >
+                    {codeInput}
+                  </SyntaxHighlighter>
+                  {result?.caption ? (
+                    <h2 className="font-bold text-l	mx-5">{result.caption}</h2>
+                  ) : null}
+                </div>
+              ) : (
+                <div className="h-24"></div>
+              )}
+            </div>
+          </div>
+        </pre>
+      </Resizable>
     </div >
   );
 };
