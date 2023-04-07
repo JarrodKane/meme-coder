@@ -4,7 +4,6 @@ import { useCallback, useRef, useState } from "react";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import javascript from "react-syntax-highlighter/dist/cjs/languages/hljs/javascript";
 import { github } from "react-syntax-highlighter/dist/cjs/styles/hljs/github";
-// import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { languages } from "../utils/langList";
 
 SyntaxHighlighter.registerLanguage("javascript", javascript);
@@ -101,7 +100,7 @@ const Home = () => {
           onChange={(e) => setCodeInput(e.target.value)}
           value={codeInput}
           id="message"
-          rows="5"
+          rows={5}
           className="textarea textarea-info bg-neutral-100"
           placeholder="Enter your code"
         ></textarea>
@@ -165,7 +164,7 @@ const Home = () => {
           </div>
         </div>
       </pre>
-    </div>
+    </div >
   );
 };
 
