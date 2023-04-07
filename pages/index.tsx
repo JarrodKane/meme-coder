@@ -17,7 +17,7 @@ const Home = () => {
   const [codeInput, setCodeInput] = useState(" ");
   const [result, setResult] = useState({ memeTitle: '', caption: '' });
   const [selectedOption, setSelectedOption] = useState(languageOptions[0]);
-  const [resizeSize, setResizeSize] = useState({ width: 500, height: 500 });
+  const [resizeSize, setResizeSize] = useState({ width: "auto", height: 'auto' });
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
