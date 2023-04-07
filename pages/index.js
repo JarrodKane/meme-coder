@@ -67,17 +67,20 @@ const Home = () => {
   }, [ref]);
 
   return (
-    <div className="leading-normal h-full tracking-normal p-6 flex flex-col gap-2  text-black bg-green-300">
+    <div
+      className="leading-normal  min-h-screen	 h-full tracking-normal p-6 flex flex-col gap-2  text-black bg-green-300 
+    "
+    >
       <Head>
         <title>Meme Coder</title>
         <link rel="icon" href="/dog.png" />
       </Head>
 
-      <div className="container mx-auto flex flex-col items-center">
+      <div className="container flex flex-col items-center mx-auto">
         <img src="/meme.png" className="h-36 w-36" />
         <h3 className=" text-6xl font-bold">Meme my code</h3>
       </div>
-      <form onSubmit={onSubmit} className="flex flex-col gap-5">
+      <form onSubmit={onSubmit} className="flex flex-col gap-5 ">
         <textarea
           name="code_input"
           onChange={(e) => setCodeInput(e.target.value)}
@@ -100,7 +103,7 @@ const Home = () => {
 
       <pre
         id="code-box"
-        className="bg-gray-800 border border-gray-800 py-4 rounded-lg"
+        className="bg-gray-800 border border-gray-800 py-4 rounded-lg "
         ref={ref}
       >
         <div className="flex flex-col ">
