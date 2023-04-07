@@ -56,6 +56,6 @@ export default async function (req, res) {
 function generatePrompt(code) {
   return `Create meme title, and caption for this code bellow.
 Code: ${code}
-Make the meme very programmer humour like, be slightly sarcastic.
+Give the answer a jestful sense of humour, be slightly sarcastic.
 `;
 }

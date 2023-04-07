@@ -4,12 +4,26 @@ import { useCallback, useRef, useState } from "react";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import javascript from "react-syntax-highlighter/dist/cjs/languages/hljs/javascript";
 import { github } from "react-syntax-highlighter/dist/cjs/styles/hljs/github";
+// import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { languages } from "../utils/langList";
 
 SyntaxHighlighter.registerLanguage("javascript", javascript);
+
+const languageOptions = Object.keys(languages).map((key) => (
+  <option key={key} value={languages[key]}>{key}</option>
+));
 
 const Home = () => {
   const [codeInput, setCodeInput] = useState("");
   const [result, setResult] = useState();
+  const [selectedOption, setSelectedOption] = useState(languageOptions[0]);
+
+
+
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -33,9 +47,10 @@ const Home = () => {
       const lines = data.result.split("\n").filter((line) => line.trim());
 
       const objectResponse = {
-        memeTitle: lines[0].split(":")[1].trim(),
-        caption: lines[1].split(":")[1].trim(),
+        memeTitle: lines[0].split(":")[1].trim().replace(/"/g, ""),
+        caption: lines[1].split(":")[1].trim().replace(/"/g, ""),
       };
+
 
       setResult(objectResponse);
 
@@ -73,7 +88,7 @@ const Home = () => {
     >
       <Head>
         <title>Meme Coder</title>
-        <link rel="icon" href="/dog.png" />
+        <link rel="icon" href="/meme.png" />
       </Head>
 
       <div className="container flex flex-col items-center mx-auto">
@@ -91,6 +106,14 @@ const Home = () => {
           placeholder="Enter your code"
         ></textarea>
       </form>
+
+
+      <div>
+        <label htmlFor="language-select">Select a language: </label>
+        <select id="language-select" className='select w-full max-w-xs select-secondary bg-white ' value={selectedOption.toString()} onChange={handleOptionChange}>
+          {languageOptions}
+        </select>
+      </div>
 
       <div className="flex gap-2">
         <button type="submit" onClick={onSubmit} className="btn btn-primary">
@@ -113,24 +136,27 @@ const Home = () => {
             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
           </div>
           <div
-            className="flex-1 bg-white mt-2 overflow-hidden whitespace-normal"
+            className="flex-1 bg-white mt-2 overflow-hidden whitespace-normal break-normal"
             id="code-text"
           >
             {result ? (
               <div className="flex flex-col">
-                {result.memeTitle ? (
-                  <h2 className="font-bold text-2xl">{result.memeTitle}</h2>
+                {result?.memeTitle ? (
+                  <h2 className="font-bold text-xl text-center	mx-5">{result.memeTitle}</h2>
                 ) : null}
                 <SyntaxHighlighter
-                  language="javascript"
+                  language={selectedOption}
+                  lineProps={{
+                    style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
+                  }}
+                  wrapLines={true}
                   style={github}
                   showLineNumbers={true}
-                  wrapLines={true}
                 >
                   {codeInput}
                 </SyntaxHighlighter>
-                {result.caption ? (
-                  <h2 className="font-bold text-l">{result.caption}</h2>
+                {result?.caption ? (
+                  <h2 className="font-bold text-l text-center	mx-5">{result.caption}</h2>
                 ) : null}
               </div>
             ) : (
