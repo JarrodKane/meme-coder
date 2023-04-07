@@ -19,7 +19,7 @@ const Home = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ animal: codeInput }),
+        body: JSON.stringify({ code: codeInput }),
       });
 
       const data = await response.json();
@@ -36,11 +36,6 @@ const Home = () => {
         memeTitle: lines[0].split(":")[1].trim(),
         caption: lines[1].split(":")[1].trim(),
       };
-
-      let newContent = `\\ ${objectResponse.memeTitle}
-      ${codeInput}
-      \\ ${objectResponse.caption}
-      `;
 
       setResult(objectResponse);
 
@@ -72,14 +67,14 @@ const Home = () => {
   }, [ref]);
 
   return (
-    <div className="leading-normal h-screen tracking-normal p-6  text-black bg-green-300">
+    <div className="leading-normal h-full tracking-normal p-6 flex flex-col gap-2  text-black bg-green-300">
       <Head>
         <title>Meme Coder</title>
         <link rel="icon" href="/dog.png" />
       </Head>
 
       <div className="container mx-auto flex flex-col items-center">
-        <img src="/meme.png" classNameName="h-36 w-36" />
+        <img src="/meme.png" className="h-36 w-36" />
         <h3 className=" text-6xl font-bold">Meme my code</h3>
       </div>
       <form onSubmit={onSubmit} className="flex flex-col gap-5">
@@ -88,36 +83,59 @@ const Home = () => {
           onChange={(e) => setCodeInput(e.target.value)}
           value={codeInput}
           id="message"
-          rows="10"
+          rows="5"
           className="textarea textarea-info bg-neutral-100"
           placeholder="Enter your code"
         ></textarea>
-        <button type="submit" className="btn">
-          Meme me
-        </button>
       </form>
 
-      <button className="btn" onClick={onButtonClick}>
-        Download image
-      </button>
-      {result ? (
-        <pre id="my-code-block" ref={ref} className="bg-white">
-          {result.memeTitle ? (
-            <h2 className="bold text-3xl">{result.memeTitle}</h2>
-          ) : null}
-          <SyntaxHighlighter
-            language="javascript"
-            style={github}
-            showLineNumbers={true}
-            wrapLines={true}
+      <div className="flex gap-2">
+        <button type="submit" onClick={onSubmit} className="btn btn-primary">
+          Meme Code
+        </button>
+        <button className="btn btn-secondary" onClick={onButtonClick}>
+          Download image
+        </button>
+      </div>
+
+      <pre
+        id="code-box"
+        className="bg-gray-800 border border-gray-800 py-4 rounded-lg"
+        ref={ref}
+      >
+        <div className="flex flex-col ">
+          <div className="flex items-cente px-2">
+            <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+            <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+          </div>
+          <div
+            className="flex-1 bg-white mt-2 overflow-hidden whitespace-normal"
+            id="code-text"
           >
-            {codeInput}
-          </SyntaxHighlighter>
-          {result.caption ? (
-            <h2 className="bold text-xl">{result.caption}</h2>
-          ) : null}
-        </pre>
-      ) : null}
+            {result ? (
+              <div className="flex flex-col">
+                {result.memeTitle ? (
+                  <h2 className="font-bold text-2xl">{result.memeTitle}</h2>
+                ) : null}
+                <SyntaxHighlighter
+                  language="javascript"
+                  style={github}
+                  showLineNumbers={true}
+                  wrapLines={true}
+                >
+                  {codeInput}
+                </SyntaxHighlighter>
+                {result.caption ? (
+                  <h2 className="font-bold text-l">{result.caption}</h2>
+                ) : null}
+              </div>
+            ) : (
+              <div className="h-24"></div>
+            )}
+          </div>
+        </div>
+      </pre>
     </div>
   );
 };

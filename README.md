@@ -1,9 +1,11 @@
 # OpenAI API Quickstart - Node.js example app
 
-This is an example pet name generator app used in the OpenAI API [quickstart tutorial](https://platform.openai.com/docs/quickstart). It uses the [Next.js](https://nextjs.org/) framework with [React](https://reactjs.org/). Check out the tutorial or follow the instructions below to get set up.
+This is a Code meme generator app used in the OpenAI API [quickstart tutorial](https://platform.openai.com/docs/quickstart).
+Using the openAI example as a starter.
+It uses the [Next.js](https://nextjs.org/) framework with [React](https://reactjs.org/).
+Using html-to-image to create the images from the code
 
-![Text box that says name my pet with an icon of a dog](https://user-images.githubusercontent.com/10623307/213887080-b2bc4645-7fdb-4dbd-ae42-efce00d0dc29.png)
-
+![Image of the Meme code logo](https://github.com/JarrodKane/meme-coder/blob/fd9a14f2ed3201355a6990adba063f3d22021952/public/meme.png)
 
 ## Setup
 
@@ -14,7 +16,7 @@ This is an example pet name generator app used in the OpenAI API [quickstart tut
 3. Navigate into the project directory
 
    ```bash
-   $ cd openai-quickstart-node
+   $ cd meme-coder
    ```
 
 4. Install the requirements
@@ -25,14 +27,18 @@ This is an example pet name generator app used in the OpenAI API [quickstart tut
 
 5. Make a copy of the example environment variables file
 
-   On Linux systems: 
+   On Linux systems:
+
    ```bash
    $ cp .env.example .env
    ```
+
    On Windows:
+
    ```powershell
    $ copy .env.example .env
    ```
+
 6. Add your [API key](https://platform.openai.com/account/api-keys) to the newly created `.env` file
 
 7. Run the app
