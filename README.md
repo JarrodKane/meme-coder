@@ -1,9 +1,13 @@
-# OpenAI API Quickstart - Node.js example app
+# Code Meme Generator App
 
-This is a Code meme generator app used in the OpenAI API [quickstart tutorial](https://platform.openai.com/docs/quickstart).
-Using the openAI example as a starter.
-It uses the [Next.js](https://nextjs.org/) framework with [React](https://reactjs.org/).
-Using html-to-image to create the images from the code
+This is a Code meme generator app that's using OpenAI.
+The app also utilizes the following libraries:
+
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [html-to-image](https://github.com/bubkoo/html-to-image) to create the images from the code
+- [daisyui](https://daisyui.com/) for UI components
+- [Tailwind CSS](https://tailwindcss.com/) for styling
 
 ![Image of the Meme code logo](https://github.com/JarrodKane/meme-coder/blob/fd9a14f2ed3201355a6990adba063f3d22021952/public/meme.png)
 
